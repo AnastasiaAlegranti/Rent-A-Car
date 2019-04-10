@@ -1,0 +1,59 @@
+<h3>Orders:</h3>
+<div class="form-row">
+    <div *ngIf="allUsers" class="col-sm-6">
+        <select class="custom-select" name="userId" [(ngModel)]="ordersSearch.userId" (change)="getAllOrders()"
+            placeholder="Select User">
+            <option value="undefined" disabled>Chose user</option>
+            <option value="">All users</option>
+            <option *ngFor="let u of allUsers" [value]="u.userId">{{u.firstName}} {{u.lastName}}</option>
+        </select>
+    </div>
+    <div *ngIf="allManufacturers" class="col-sm-6">
+        <select class="custom-select" name="manufacturerId" [(ngModel)]="ordersSearch.manufacturerId"
+            (change)="getAllOrders()">
+            <option value="undefined" disabled>Chose manufacturer</option>
+            <option value="">All manufacturers</option>
+            <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="allModels" class="col-sm-6">
+        <select class="custom-select" name="modelId" [(ngModel)]="ordersSearch.modelId" (change)="getAllOrders()">
+            <option value="undefined" disabled>Choose model</option>
+            <option value="">All models</option>
+            <option *ngFor="let m of allModels" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="allCars" class="col-sm-6">
+        <select class="custom-select" name="carId" [(ngModel)]="ordersSearch.carId" (change)="getAllOrders()">
+            <option value="undefined" disabled>Choose car</option>
+            <option value="">All cars</option>
+            <option *ngFor="let c of allCars" [value]="c.id">{{c.licenseNumber}}</option>
+        </select>
+    </div>
+</div>
+
+<div class="col-md table table-responsive" *ngIf="allOrders?.length>0"><!-- If use only with *ngIf="allOrders", header of table not disappear when there is no orders that matches. -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Order Date</th>
+                <th scope="col">Full name</th>
+                <th scope="col">Manufacturer and Model</th>
+                <th scope="col">Model Image</th>
+                <th scope="col">Rental Range</th>
+                <th scope="col">Total cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let o of allOrders">
+                <td scope="row">{{o.orderDate|date:'short'}}</td>
+                <td>{{o.lastName}} {{o.firstName}}</td>
+                <td>{{o.manufacturerName}} {{o.modelName}}</td>
+                <td><img src="{{imagesFolder}}/{{o.modelImageName}}"></td>
+                <td>{{o.startDate}} {{o.finishDate}}</td>
+                <td>{{o.totalCost}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h5 *ngIf="message">There is no orders for this search.</h5>

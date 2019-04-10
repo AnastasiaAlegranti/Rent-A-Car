@@ -1,0 +1,16 @@
+  .bg { 
+    background-image: url("/assets/images/home2.jpg");
+    margin:10px;
+    padding:65px;
+    height: auto; 
+  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  h1{
+      color:rgb(160, 9, 102);
+      opacity:1;
+      text-align: left;
+      font-weight: bold;
+  }

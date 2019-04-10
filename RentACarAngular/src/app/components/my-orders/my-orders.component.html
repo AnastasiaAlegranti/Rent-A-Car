@@ -1,0 +1,25 @@
+<div class="col-md table table-responsive" *ngIf="myOrders?.length>0">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Order Date</th>
+                <th scope="col">Full name</th>
+                <th scope="col">Manufacturer and Model</th>
+                <th scope="col">Model Image</th>
+                <th scope="col">Rental Range</th>
+                <th scope="col">Total cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let o of myOrders">
+                <td scope="row">{{o.orderDate|date:'short'}}</td>
+                <td>{{o.lastName}} {{o.firstName}}</td>
+                <td>{{o.manufacturerName}} {{o.modelName}}</td>
+                <td><img src="{{imagesFolder}}/{{o.modelImageName}}"></td>
+                <td>{{o.startDate|date:'short'}}-{{o.finishDate|date:'short'}}</td>
+                <td>{{o.totalCost}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h5 *ngIf="message">{{message}}</h5>

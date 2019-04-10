@@ -1,0 +1,64 @@
+<div class="col d-block d-md-none form-control bg-dark text-white-50" data-toggle="collapse" data-target="#search"> <i
+        class="fas fa-angle-double-down"></i> Search <i class="fas fa-angle-double-down"></i></div>
+
+<div id="search" class="collapse in">
+    <div class="form row">
+        <div class="form-inline col-12 col-sm-3">
+            <div class="input-group">
+                <label class="mr-sm-2 sr-only" for="from">Enter date from</label>
+                <input #from class="form-control" placeholder="from: yyyy-mm-dd" name="start" [(ngModel)]="start"
+                    (dateSelect)="getAllCars()" ngbDatepicker #d="ngbDatepicker" [minDate]="minDateStart"
+                    [maxDate]="{year: 2048, month: 12, day: 31}">
+                <div class="input-group-append">
+                    <button class="form-control" (click)="d.toggle()" type="button"><i
+                            class="far fa-calendar-alt"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="form-inline col-12 col-sm-3">
+            <div class="input-group">
+                    <label class="mr-sm-2 sr-only" for="to">Enter date to</label>
+                <input #to class="form-control" placeholder="To: yyyy-mm-dd" name="end" [(ngModel)]="end" ngbDatepicker
+                    #de="ngbDatepicker" (dateSelect)="getAllCars()" [minDate]="minDateEnd">
+                <div class="input-group-append">
+                    <button class="form-control" (click)="de.toggle()" type="button"><i
+                            class="far fa-calendar-alt"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-sm-3">
+            <select class="custom-select" name="manufacturerId" [(ngModel)]="search.manufacturerId" placeholder="ddd"
+                (change)="getAllCars()">
+                <option value="undefined" disabled>Choose manufacturer</option>
+                <option value="">All manufacturers</option>
+                <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+            </select>
+        </div>
+        <div class="col-12 col-sm-3">
+            <select *ngIf="allModels" class="custom-select" name="modelId" [(ngModel)]="search.modelId"
+                (change)="getAllCars()">
+                <option value="undefined" disabled>Choose model</option>
+                <option value="">All models</option>
+                <option *ngFor="let m of allModels" [value]="m.id">{{m.name}}</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div *ngFor="let c of allCars" class="cardStyle">
+    <div class="card bg-dark text-white-50">
+        <img src="{{imagesFolder}}/{{c.modelImageName}}" class="card-img-top" alt="...">
+        <div class="card-body ">
+            <h5 class="card-title">{{c.manufacturerName}} {{c.modelName}}</h5>
+            <p class="card-text"> {{c.modelPrice}}</p>
+            <p class="card-text"> {{c.carLicenseNumber}}</p>
+            <p class="card-text" *ngIf="c.numberOfDays">Num of Days{{c.numberOfDays}}</p>
+            <p class="card-text" *ngIf="c.totalCost">TotalCost{{c.totalCost}}</p>
+            <p class="card-text"> {{c.modelPrice}}</p>
+            <button class="btn btn-primary" (click)="getDetails(c)"
+                routerLink="/car-details/{{c.id}}">Details</button>
+        </div>
+    </div>
+</div>
+
+
+

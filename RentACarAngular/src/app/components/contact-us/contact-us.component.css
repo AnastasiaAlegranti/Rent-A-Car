@@ -1,0 +1,11 @@
+button{
+    width:250px;
+    margin:10px;
+}
+.forms{
+    max-width: 600px;
+    margin:auto;
+}
+span,h3{
+    color: blueviolet;
+}

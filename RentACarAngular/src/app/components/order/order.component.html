@@ -1,0 +1,9 @@
+<div *ngIf="order && !message">
+    <h6> Rental range: {{order.startDate |date}}-{{order.finishDate|date}}</h6>
+    <h6> Total cost: {{order.totalCost}}</h6>
+    <button (click)="addOrder()" class="btn btn-primary">Confirm Order</button>
+</div>
+
+<div *ngIf="message">
+    <h6>{{message}}</h6>
+</div>

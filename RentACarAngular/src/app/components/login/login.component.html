@@ -1,0 +1,11 @@
+<div class="forms">
+    <button class="btn btn-primary align-items-center" (click)="toExcistingUser()"><i class="fas fa-user"></i>Login</button>
+        
+    <button class="btn btn-secondary align-items-center" (click)="toNewUser()"> <i class="fas fa-user-plus"></i>Register</button>        
+
+    <app-registered-user-login *ngIf="excistingUser; else newUser"></app-registered-user-login>
+
+    <ng-template #newUser>
+        <app-new-register></app-new-register>
+    </ng-template>
+</div>

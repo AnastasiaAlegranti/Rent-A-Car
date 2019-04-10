@@ -1,0 +1,70 @@
+<h3>Manufacturers</h3>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div *ngIf="allManufacturers">
+                <select class="custom-select" name="id" [(ngModel)]="manufacturerToDelete.id"
+                    (change)="getManufacturerById()">
+                    <option value="undefined" disabled>Chose manufacturer</option>
+                    <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+                </select>
+            </div>
+            <button class="form-control btn btn-info" [disabled]="!manufacturerToDelete.id"
+                (click)="open(content)">Delete
+                manufacturer</button>
+            <div *ngIf="messageDeleteManufacturer">
+                <h6>{{messageDeleteManufacturer}}</h6>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <input #name name="name" [(ngModel)]="manufacturerToAdd.name" placeholder="Manufacturer name" type="text"
+                maxlength="50" class="form-control">
+            <span *ngIf=" name.touched && name.errors?.required &&name.invalid">Missing message...</span>
+            <button [disabled]="!manufacturerToAdd.name" class="form-control btn btn-info"
+                (click)="addManufacturer()">Add
+                manufacturer</button>
+            <div *ngIf="messageAddManufacturer">
+                <h6>{{messageAddManufacturer}}</h6>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div *ngIf="allManufacturers" class="col">
+            <select class="custom-select" name="id" [(ngModel)]="manufacturerToUpdate.id">
+                <option value="undefined" disabled>Chose manufacturer</option>
+                <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+            </select>
+            <input name="name" [(ngModel)]="manufacturerToUpdate.name" placeholder="Chose new manufacturer name"
+                type="text" class="form-control" maxlength="50">
+            <button [disabled]="!manufacturerToUpdate.name  || !manufacturerToUpdate.id"
+                class="form-control btn btn-info" (click)="updateManufacturer()">Update
+                manufacturer</button>
+            <div *ngIf="messageUpdateManufacturer">
+                <h6>{{messageUpdateManufacturer}}</h6>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="confirm">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Are you sure?</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>This action will delete {{manufacturerToDelete.name}} permanently.</h3>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info btn-outline-dark"
+                (click)="modal.close('Save click')">Cancel</button>
+            <button type="button" class="btn btn-info btn-outline-dark"
+                (click)="deleteManufacturer();modal.close()">Delete</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,765 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="RentalCarModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cars">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ModelID" Type="int" Nullable="false" />
+          <Property Name="CarLicenseNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ContactUsMessages">
+          <Key>
+            <PropertyRef Name="ContactUsID" />
+          </Key>
+          <Property Name="ContactUsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="4000" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="50" />
+          <Property Name="MessageDate" Type="date" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Manufacturers">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Models">
+          <Key>
+            <PropertyRef Name="ModelID" />
+          </Key>
+          <Property Name="ModelID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="ModelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModelPrice" Type="money" Nullable="false" />
+          <Property Name="ModelImageName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CarID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="StartRentalDate" Type="date" Nullable="false" />
+          <Property Name="EndRentalDate" Type="date" Nullable="false" />
+          <Property Name="TotalRentalCost" Type="money" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" />
+          <Property Name="DateOfBirth" Type="date" />
+          <Property Name="Role" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RentalCar.dbo.ShowAllCars' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowAllCars">
+          <Key>
+            <PropertyRef Name="ModelName" />
+            <PropertyRef Name="ModelImageName" />
+            <PropertyRef Name="ManufacturerName" />
+            <PropertyRef Name="CarLicenseNumber" />
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="ModelID" />
+            <PropertyRef Name="ManufacturerID" />
+            <PropertyRef Name="ModelPrice" />
+          </Key>
+          <Property Name="ModelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModelImageName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="ManufacturerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CarLicenseNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CarID" Type="int" Nullable="false" />
+          <Property Name="ModelID" Type="int" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="ModelPrice" Type="money" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'RentalCar.dbo.ShowAllOrdersDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ShowAllOrdersDetails">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ManufacturerID" />
+            <PropertyRef Name="ModelId" />
+            <PropertyRef Name="CarId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="ManufacturerName" />
+            <PropertyRef Name="ModelName" />
+            <PropertyRef Name="ModelImageName" />
+            <PropertyRef Name="StartRentalDate" />
+            <PropertyRef Name="EndRentalDate" />
+            <PropertyRef Name="TotalRentalCost" />
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="OrderDate" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="ManufacturerID" Type="int" Nullable="false" />
+          <Property Name="ModelId" Type="int" Nullable="false" />
+          <Property Name="CarId" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ManufacturerName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModelName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ModelImageName" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="StartRentalDate" Type="date" Nullable="false" />
+          <Property Name="EndRentalDate" Type="date" Nullable="false" />
+          <Property Name="TotalRentalCost" Type="money" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+          <Property Name="OrderDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Cars_Models">
+          <End Role="Models" Type="Self.Models" Multiplicity="1" />
+          <End Role="Cars" Type="Self.Cars" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Models">
+              <PropertyRef Name="ModelID" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactUsMessages_ContactUsMessages">
+          <End Role="ContactUsMessages" Type="Self.ContactUsMessages" Multiplicity="1" />
+          <End Role="ContactUsMessages1" Type="Self.ContactUsMessages" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactUsMessages">
+              <PropertyRef Name="ContactUsID" />
+            </Principal>
+            <Dependent Role="ContactUsMessages1">
+              <PropertyRef Name="ContactUsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Models_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1" />
+          <End Role="Models" Type="Self.Models" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Models">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RentalCars_Orders">
+          <End Role="Cars" Type="Self.Cars" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetAllOrdersByAdmin" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="manufacturerId" Type="int" Mode="In" />
+          <Parameter Name="modelId" Type="int" Mode="In" />
+          <Parameter Name="carId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAllOrdersByUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetAvailableCarsBySearch" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <Parameter Name="manufacturerId" Type="int" Mode="In" />
+          <Parameter Name="modelId" Type="int" Mode="In" />
+          <Parameter Name="carId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetBookedDatesFromTodayByCar" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="carId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="GetBookedDatesTable" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="start" Type="date" Mode="In" />
+          <Parameter Name="end" Type="date" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="d" Type="date" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <EntityContainer Name="RentalCarModelStoreContainer">
+          <EntitySet Name="Cars" EntityType="Self.Cars" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ContactUsMessages" EntityType="Self.ContactUsMessages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Models" EntityType="Self.Models" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShowAllCars" EntityType="Self.ShowAllCars" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowAllCars].[ModelName] AS [ModelName], 
+    [ShowAllCars].[ModelImageName] AS [ModelImageName], 
+    [ShowAllCars].[ManufacturerName] AS [ManufacturerName], 
+    [ShowAllCars].[CarLicenseNumber] AS [CarLicenseNumber], 
+    [ShowAllCars].[CarID] AS [CarID], 
+    [ShowAllCars].[ModelID] AS [ModelID], 
+    [ShowAllCars].[ManufacturerID] AS [ManufacturerID], 
+    [ShowAllCars].[ModelPrice] AS [ModelPrice]
+    FROM [dbo].[ShowAllCars] AS [ShowAllCars]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ShowAllOrdersDetails" EntityType="Self.ShowAllOrdersDetails" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [ShowAllOrdersDetails].[UserId] AS [UserId], 
+    [ShowAllOrdersDetails].[ManufacturerID] AS [ManufacturerID], 
+    [ShowAllOrdersDetails].[ModelId] AS [ModelId], 
+    [ShowAllOrdersDetails].[CarId] AS [CarId], 
+    [ShowAllOrdersDetails].[FirstName] AS [FirstName], 
+    [ShowAllOrdersDetails].[LastName] AS [LastName], 
+    [ShowAllOrdersDetails].[ManufacturerName] AS [ManufacturerName], 
+    [ShowAllOrdersDetails].[ModelName] AS [ModelName], 
+    [ShowAllOrdersDetails].[ModelImageName] AS [ModelImageName], 
+    [ShowAllOrdersDetails].[StartRentalDate] AS [StartRentalDate], 
+    [ShowAllOrdersDetails].[EndRentalDate] AS [EndRentalDate], 
+    [ShowAllOrdersDetails].[TotalRentalCost] AS [TotalRentalCost], 
+    [ShowAllOrdersDetails].[OrderID] AS [OrderID], 
+    [ShowAllOrdersDetails].[OrderDate] AS [OrderDate]
+    FROM [dbo].[ShowAllOrdersDetails] AS [ShowAllOrdersDetails]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Cars_Models" Association="Self.FK_Cars_Models">
+            <End Role="Models" EntitySet="Models" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactUsMessages_ContactUsMessages" Association="Self.FK_ContactUsMessages_ContactUsMessages">
+            <End Role="ContactUsMessages" EntitySet="ContactUsMessages" />
+            <End Role="ContactUsMessages1" EntitySet="ContactUsMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Models_Manufacturers" Association="Self.FK_Models_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Models" EntitySet="Models" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RentalCars_Orders" Association="Self.FK_RentalCars_Orders">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RentalCarModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="GetBookedDatesTable_Result">
+          <Property Name="d" Type="DateTime" />
+        </ComplexType>
+        <EntityType Name="Car">
+          <Key>
+            <PropertyRef Name="CarID" />
+          </Key>
+          <Property Name="CarID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ModelID" Type="Int32" Nullable="false" />
+          <Property Name="CarLicenseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Model" Relationship="Self.FK_Cars_Models" FromRole="Cars" ToRole="Models" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_RentalCars_Orders" FromRole="Cars" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="ContactUsMessage">
+          <Key>
+            <PropertyRef Name="ContactUsID" />
+          </Key>
+          <Property Name="ContactUsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Message" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MessageDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="ContactUsMessages1" Relationship="Self.FK_ContactUsMessages_ContactUsMessages" FromRole="ContactUsMessages" ToRole="ContactUsMessages1" />
+          <NavigationProperty Name="ContactUsMessage1" Relationship="Self.FK_ContactUsMessages_ContactUsMessages" FromRole="ContactUsMessages1" ToRole="ContactUsMessages" />
+        </EntityType>
+        <EntityType Name="Manufacturer">
+          <Key>
+            <PropertyRef Name="ManufacturerID" />
+          </Key>
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Models" Relationship="Self.FK_Models_Manufacturers" FromRole="Manufacturers" ToRole="Models" />
+        </EntityType>
+        <EntityType Name="Model">
+          <Key>
+            <PropertyRef Name="ModelID" />
+          </Key>
+          <Property Name="ModelID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModelPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ModelImageName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Cars" Relationship="Self.FK_Cars_Models" FromRole="Models" ToRole="Cars" />
+          <NavigationProperty Name="Manufacturer" Relationship="Self.FK_Models_Manufacturers" FromRole="Models" ToRole="Manufacturers" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CarID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="StartRentalDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndRentalDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TotalRentalCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Car" Relationship="Self.FK_RentalCars_Orders" FromRole="Orders" ToRole="Cars" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Orders_Users" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="DateOfBirth" Type="DateTime" Precision="0" />
+          <Property Name="Role" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="ShowAllCar">
+          <Key>
+            <PropertyRef Name="ModelName" />
+            <PropertyRef Name="ModelImageName" />
+            <PropertyRef Name="ManufacturerName" />
+            <PropertyRef Name="CarLicenseNumber" />
+            <PropertyRef Name="CarID" />
+            <PropertyRef Name="ModelID" />
+            <PropertyRef Name="ManufacturerID" />
+            <PropertyRef Name="ModelPrice" />
+          </Key>
+          <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModelImageName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CarLicenseNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CarID" Type="Int32" Nullable="false" />
+          <Property Name="ModelID" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="ModelPrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowAllOrdersDetail">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="ManufacturerID" />
+            <PropertyRef Name="ModelId" />
+            <PropertyRef Name="CarId" />
+            <PropertyRef Name="FirstName" />
+            <PropertyRef Name="LastName" />
+            <PropertyRef Name="ManufacturerName" />
+            <PropertyRef Name="ModelName" />
+            <PropertyRef Name="ModelImageName" />
+            <PropertyRef Name="StartRentalDate" />
+            <PropertyRef Name="EndRentalDate" />
+            <PropertyRef Name="TotalRentalCost" />
+            <PropertyRef Name="OrderID" />
+            <PropertyRef Name="OrderDate" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="ManufacturerID" Type="Int32" Nullable="false" />
+          <Property Name="ModelId" Type="Int32" Nullable="false" />
+          <Property Name="CarId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ManufacturerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ModelImageName" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StartRentalDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndRentalDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="TotalRentalCost" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <Association Name="FK_Cars_Models">
+          <End Role="Models" Type="Self.Model" Multiplicity="1" />
+          <End Role="Cars" Type="Self.Car" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Models">
+              <PropertyRef Name="ModelID" />
+            </Principal>
+            <Dependent Role="Cars">
+              <PropertyRef Name="ModelID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RentalCars_Orders">
+          <End Role="Cars" Type="Self.Car" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cars">
+              <PropertyRef Name="CarID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="CarID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ContactUsMessages_ContactUsMessages">
+          <End Role="ContactUsMessages" Type="Self.ContactUsMessage" Multiplicity="1" />
+          <End Role="ContactUsMessages1" Type="Self.ContactUsMessage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ContactUsMessages">
+              <PropertyRef Name="ContactUsID" />
+            </Principal>
+            <Dependent Role="ContactUsMessages1">
+              <PropertyRef Name="ContactUsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Models_Manufacturers">
+          <End Role="Manufacturers" Type="Self.Manufacturer" Multiplicity="1" />
+          <End Role="Models" Type="Self.Model" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Manufacturers">
+              <PropertyRef Name="ManufacturerID" />
+            </Principal>
+            <Dependent Role="Models">
+              <PropertyRef Name="ManufacturerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="RentalCarEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cars" EntityType="Self.Car" />
+          <EntitySet Name="ContactUsMessages" EntityType="Self.ContactUsMessage" />
+          <EntitySet Name="Manufacturers" EntityType="Self.Manufacturer" />
+          <EntitySet Name="Models" EntityType="Self.Model" />
+          <EntitySet Name="Orders" EntityType="Self.Order" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="ShowAllCars" EntityType="Self.ShowAllCar" />
+          <EntitySet Name="ShowAllOrdersDetails" EntityType="Self.ShowAllOrdersDetail" />
+          <AssociationSet Name="FK_Cars_Models" Association="Self.FK_Cars_Models">
+            <End Role="Models" EntitySet="Models" />
+            <End Role="Cars" EntitySet="Cars" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RentalCars_Orders" Association="Self.FK_RentalCars_Orders">
+            <End Role="Cars" EntitySet="Cars" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ContactUsMessages_ContactUsMessages" Association="Self.FK_ContactUsMessages_ContactUsMessages">
+            <End Role="ContactUsMessages" EntitySet="ContactUsMessages" />
+            <End Role="ContactUsMessages1" EntitySet="ContactUsMessages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Models_Manufacturers" Association="Self.FK_Models_Manufacturers">
+            <End Role="Manufacturers" EntitySet="Manufacturers" />
+            <End Role="Models" EntitySet="Models" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <FunctionImport Name="GetBookedDatesTable" IsComposable="true" ReturnType="Collection(RentalCarModel.GetBookedDatesTable_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllOrdersByAdmin" ReturnType="Collection(RentalCarModel.GetAllOrdersByAdmin_Result)">
+            <Parameter Name="manufacturerId" Mode="In" Type="Int32" />
+            <Parameter Name="modelId" Mode="In" Type="Int32" />
+            <Parameter Name="carId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAllOrdersByUser" ReturnType="Collection(RentalCarModel.GetAllOrdersByUser_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetAvailableCarsBySearch" ReturnType="Collection(RentalCarModel.GetAvailableCarsBySearch_Result)">
+            <Parameter Name="start" Mode="In" Type="DateTime" />
+            <Parameter Name="end" Mode="In" Type="DateTime" />
+            <Parameter Name="manufacturerId" Mode="In" Type="Int32" />
+            <Parameter Name="modelId" Mode="In" Type="Int32" />
+            <Parameter Name="carId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="GetBookedDatesFromTodayByCar" ReturnType="Collection(DateTime)">
+            <Parameter Name="carId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetAllOrdersByAdmin_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="ManufacturerID" Nullable="false" />
+          <Property Type="Int32" Name="ModelId" Nullable="false" />
+          <Property Type="Int32" Name="CarId" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="ManufacturerName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ModelName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ModelImageName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="StartRentalDate" Nullable="false" />
+          <Property Type="DateTime" Name="EndRentalDate" Nullable="false" />
+          <Property Type="Decimal" Name="TotalRentalCost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetAllOrdersByUser_Result">
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Int32" Name="ManufacturerID" Nullable="false" />
+          <Property Type="Int32" Name="ModelId" Nullable="false" />
+          <Property Type="Int32" Name="CarId" Nullable="false" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="ManufacturerName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ModelName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ModelImageName" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="StartRentalDate" Nullable="false" />
+          <Property Type="DateTime" Name="EndRentalDate" Nullable="false" />
+          <Property Type="Decimal" Name="TotalRentalCost" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="OrderID" Nullable="false" />
+          <Property Type="DateTime" Name="OrderDate" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="GetAvailableCarsBySearch_Result">
+          <Property Type="String" Name="ModelName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ModelImageName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ManufacturerName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="CarLicenseNumber" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CarID" Nullable="false" />
+          <Property Type="Int32" Name="ModelID" Nullable="false" />
+          <Property Type="Int32" Name="ManufacturerID" Nullable="false" />
+          <Property Type="Decimal" Name="ModelPrice" Nullable="false" Precision="19" />
+          <Property Type="Int32" Name="numberOfDays" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RentalCarModelStoreContainer" CdmEntityContainer="RentalCarEntities">
+          <EntitySetMapping Name="Cars">
+            <EntityTypeMapping TypeName="RentalCarModel.Car">
+              <MappingFragment StoreEntitySet="Cars">
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="CarLicenseNumber" ColumnName="CarLicenseNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ContactUsMessages">
+            <EntityTypeMapping TypeName="RentalCarModel.ContactUsMessage">
+              <MappingFragment StoreEntitySet="ContactUsMessages">
+                <ScalarProperty Name="ContactUsID" ColumnName="ContactUsID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="MessageDate" ColumnName="MessageDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Manufacturers">
+            <EntityTypeMapping TypeName="RentalCarModel.Manufacturer">
+              <MappingFragment StoreEntitySet="Manufacturers">
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Models">
+            <EntityTypeMapping TypeName="RentalCarModel.Model">
+              <MappingFragment StoreEntitySet="Models">
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="ModelPrice" ColumnName="ModelPrice" />
+                <ScalarProperty Name="ModelImageName" ColumnName="ModelImageName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="RentalCarModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="StartRentalDate" ColumnName="StartRentalDate" />
+                <ScalarProperty Name="EndRentalDate" ColumnName="EndRentalDate" />
+                <ScalarProperty Name="TotalRentalCost" ColumnName="TotalRentalCost" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="RentalCarModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowAllCars">
+            <EntityTypeMapping TypeName="RentalCarModel.ShowAllCar">
+              <MappingFragment StoreEntitySet="ShowAllCars">
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="ModelImageName" ColumnName="ModelImageName" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="CarLicenseNumber" ColumnName="CarLicenseNumber" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ModelPrice" ColumnName="ModelPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowAllOrdersDetails">
+            <EntityTypeMapping TypeName="RentalCarModel.ShowAllOrdersDetail">
+              <MappingFragment StoreEntitySet="ShowAllOrdersDetails">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="ModelImageName" ColumnName="ModelImageName" />
+                <ScalarProperty Name="StartRentalDate" ColumnName="StartRentalDate" />
+                <ScalarProperty Name="EndRentalDate" ColumnName="EndRentalDate" />
+                <ScalarProperty Name="TotalRentalCost" ColumnName="TotalRentalCost" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="RentalCarModel.Store.GetBookedDatesTable" FunctionImportName="GetBookedDatesTable">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RentalCarModel.GetBookedDatesTable_Result">
+                <ScalarProperty Name="d" ColumnName="d" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllOrdersByAdmin" FunctionName="RentalCarModel.Store.GetAllOrdersByAdmin">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RentalCarModel.GetAllOrdersByAdmin_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="ModelImageName" ColumnName="ModelImageName" />
+                <ScalarProperty Name="StartRentalDate" ColumnName="StartRentalDate" />
+                <ScalarProperty Name="EndRentalDate" ColumnName="EndRentalDate" />
+                <ScalarProperty Name="TotalRentalCost" ColumnName="TotalRentalCost" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAllOrdersByUser" FunctionName="RentalCarModel.Store.GetAllOrdersByUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RentalCarModel.GetAllOrdersByUser_Result">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ModelId" ColumnName="ModelId" />
+                <ScalarProperty Name="CarId" ColumnName="CarId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="ModelImageName" ColumnName="ModelImageName" />
+                <ScalarProperty Name="StartRentalDate" ColumnName="StartRentalDate" />
+                <ScalarProperty Name="EndRentalDate" ColumnName="EndRentalDate" />
+                <ScalarProperty Name="TotalRentalCost" ColumnName="TotalRentalCost" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetAvailableCarsBySearch" FunctionName="RentalCarModel.Store.GetAvailableCarsBySearch">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RentalCarModel.GetAvailableCarsBySearch_Result">
+                <ScalarProperty Name="ModelName" ColumnName="ModelName" />
+                <ScalarProperty Name="ModelImageName" ColumnName="ModelImageName" />
+                <ScalarProperty Name="ManufacturerName" ColumnName="ManufacturerName" />
+                <ScalarProperty Name="CarLicenseNumber" ColumnName="CarLicenseNumber" />
+                <ScalarProperty Name="CarID" ColumnName="CarID" />
+                <ScalarProperty Name="ModelID" ColumnName="ModelID" />
+                <ScalarProperty Name="ManufacturerID" ColumnName="ManufacturerID" />
+                <ScalarProperty Name="ModelPrice" ColumnName="ModelPrice" />
+                <ScalarProperty Name="numberOfDays" ColumnName="numberOfDays" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetBookedDatesFromTodayByCar" FunctionName="RentalCarModel.Store.GetBookedDatesFromTodayByCar" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

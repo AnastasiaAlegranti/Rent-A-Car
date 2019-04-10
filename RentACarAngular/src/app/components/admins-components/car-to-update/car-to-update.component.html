@@ -1,0 +1,29 @@
+<div class="col">
+    <div *ngIf="allManufacturers">
+        <select class="custom-select" name="manufacturerId" [(ngModel)]="manufacturerId"
+            (change)="getAllModelsByManufacturer()">
+            <option value="undefined" disabled>Chose car manufacturer</option>
+            <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="allModels">
+        <select class="custom-select" name="id" [(ngModel)]="carToUpdate.modelID" (change)="getAllCarsByModel()">
+            <option value="undefined" disabled>Chose car model</option>
+            <option *ngFor="let m of allModels" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="allCars">
+        <select class="custom-select" name="id" [(ngModel)]="carToUpdate.id" (change)="getCarById()">
+            <option value="undefined" disabled>Chose car </option>
+            <option *ngFor="let c of allCars" [value]="c.id">{{c.licenseNumber}}</option>
+        </select>
+    </div>
+    <input name="name" [(ngModel)]="carToUpdate.licenseNumber" placeholder="Chose new licence number" type="text"
+        class="form-control" maxlength="50">
+    <button [disabled]="!carToUpdate.licenseNumber  || !carToUpdate.id ||!carToUpdate.modelID"
+        class="form-control btn btn-info" (click)="updateCar()">Update
+        Car</button>
+    <div *ngIf="messageUpdateCar">
+        <h6>{{messageUpdateCar}}</h6>
+    </div>
+</div>

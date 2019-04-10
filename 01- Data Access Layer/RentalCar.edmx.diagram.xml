@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7cbfaa97b5d3474a9008ccb21200cd19" Name="Diagram1">
+        <EntityTypeShape EntityType="RentalCarModel.Car" Width="1.5" PointX="5.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalCarModel.ContactUsMessage" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalCarModel.Manufacturer" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalCarModel.Model" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalCarModel.Order" Width="1.5" PointX="7.5" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalCarModel.User" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalCarModel.ShowAllCar" Width="1.5" PointX="7.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="RentalCarModel.ShowAllOrdersDetail" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="RentalCarModel.FK_Cars_Models" ManuallyRouted="false" />
+        <AssociationConnector Association="RentalCarModel.FK_RentalCars_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="RentalCarModel.FK_ContactUsMessages_ContactUsMessages" ManuallyRouted="false" />
+        <AssociationConnector Association="RentalCarModel.FK_Models_Manufacturers" ManuallyRouted="false" />
+        <AssociationConnector Association="RentalCarModel.FK_Orders_Users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

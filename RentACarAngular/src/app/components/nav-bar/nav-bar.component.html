@@ -1,0 +1,7 @@
+<div><a routerLink="/home"><i class="fas fa-home"></i>Home</a></div>
+<div><a routerLink="/search-cars"><i class="fas fa-search"></i>Search Car</a></div>
+<div><a routerLink="/my-orders" *ngIf="this.loginService.isLoggedIn"> <i class="fas fa-car"></i>My Orders</a></div>
+<div><a *ngIf="this.loginService.isAdmin" routerLink="/admin"><i class="fas fa-user-tie"></i> Admin</a></div>
+<div><a routerLink="/contact-us"> <i class="far fa-envelope"></i>Contact Us</a></div>
+<div><a *ngIf="!this.loginService.isLoggedIn" routerLink="/login"><i class="fas fa-sign-in-alt"></i>Login</a></div>
+<div><a *ngIf="this.loginService.isLoggedIn" (click)="logout()" routerLink="/logout"><i class="fas fa-sign-out-alt"></i>Logout</a></div>

@@ -1,0 +1,58 @@
+<ng-template #contact>
+    <div class="forms">
+        <form #contactUsForm="ngForm" (ngSubmit)="send()">
+            <div class="form-group align-items-center">
+                <label class="mr-sm-2 sr-only" for="firstName">First name </label>
+                <input #firstName="ngModel" [(ngModel)]="contactUsMessageModel.firstName" name="firstName" required
+                    type="text" minlength="2" maxlength="20" placeholder="First name..." class="form-control">
+                <span *ngIf="firstName.touched && firstName.errors?.required && firstName.invalid">Missing first
+                    name...</span>
+                <span *ngIf=" firstName.errors?.minlength && firstName.touched && firstName.invalid">First name must
+                    contain
+                    at least 2 letters...</span>
+            </div>
+            <div class="form-group align-items-center">
+                <label class="mr-sm-2 sr-only" for="lastName">Last name </label>
+                <input #lastName="ngModel" [(ngModel)]="contactUsMessageModel.lastName" name="firstName" required
+                    type="text" minlength="2" maxlength="20" placeholder="Last name..." class="form-control">
+                <span *ngIf="lastName.touched && lastName.errors?.required && lastName.invalid">Missing last
+                    name...</span>
+                <span *ngIf=" lastName.touched && lastName.errors?.minlength && lastName.invalid">Invalid last
+                    name...</span>
+            </div>
+            <div class="form-group align-items-center">
+                <label class="mr-sm-2 sr-only" for="phone">Phone </label>
+                <input #phone="ngModel" [(ngModel)]="contactUsMessageModel.phone" name="phone" required
+                    placeholder="Phone.."
+                    pattern="\b\d{7,10}|\+\d{4}-\d{8}|\+\d{11}|\d{4}\s\d{7}|\+\d{2}\s\d{10}|\d{2}-\d{7}|\d{4}\s\d{3}\s\d{4}\b"
+                    class="form-control">
+                <span *ngIf="phone.touched && phone.errors?.required && phone.invalid">Missing phone...</span>
+                <span *ngIf=" phone.touched && phone.errors?.pattern && phone.invalid">Invalid phone</span>
+            </div>
+            <div class="form-group align-items-center">
+                <label class="mr-sm-2 sr-only" for="email">Email </label>
+                <input #email="ngModel" [(ngModel)]="contactUsMessageModel.email" name="email" required type="email"
+                    placeholder="Email.." [email]="true" class="form-control">
+                <span *ngIf=" email.touched && email.errors?.required &&email.invalid">Missing email...</span>
+                <span *ngIf=" email.touched && email.errors?.email && email.invalid">Invalid email</span>
+            </div>
+            <div class="form-group align-items-center">
+                <label class="mr-sm-2 sr-only" for="subject">Subject </label>
+                <input #subject="ngModel" [(ngModel)]="contactUsMessageModel.subject" name="subject" type="text"
+                    maxlength="50" placeholder="Subject" class="form-control">
+            </div>
+            <div class="form-group align-items-center">
+                <label class="mr-sm-2 sr-only" for="message">Message </label>
+                <input #message="ngModel" [(ngModel)]="contactUsMessageModel.message" name="message" type="text"
+                    required maxlength="4000" placeholder="Message" class="form-control">
+                <span *ngIf=" message.touched && message.errors?.required &&message.invalid">Missing message...</span>
+            </div>
+            <button [disabled]="contactUsForm.form.invalid" class="btn btn-primary">Send</button>
+        </form>
+    </div>
+</ng-template>
+<div *ngIf="messageToUser; else contact">
+    <h3>{{messageToUser}}</h3>
+    <img *ngIf="addSuccessImage==1" src="/assets/images/email-sent.png">
+    <img *ngIf="addSuccessImage==0" src="/assets/images/email-not-sent.jpg">
+</div>

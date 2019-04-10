@@ -1,0 +1,27 @@
+    .cardStyle{        
+        display: inline-block;
+        margin: 5px;
+    }
+    .card{        
+        height:380px;
+        width: 300px;
+    }
+    img{
+        height: 30%;
+
+    }
+    @media (min-width: 768px) {
+        #search.collapse {
+          display: block;
+        }
+      }
+    .col d-block d-md-none{
+          background-color: blueviolet;
+          border: 2px solid blue;
+      }
+    label{
+          font-size: smaller;   
+      }
+    p{
+        margin: 0px;
+    }

@@ -1,0 +1,93 @@
+<h3>Models:</h3>
+<div class="row">
+    <div *ngIf="allManufacturers" class="col">
+        <select class="custom-select" name="manufacturerId" [(ngModel)]="modelToDelete.manufacturerId"
+            (change)="getAllModelsByManufacturer($event)">
+            <option value="undefined" disabled>Chose manufacturer of model</option>
+            <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+        </select>
+        <div *ngIf="allModelsInDelete">
+            <select class="custom-select" name="id" [(ngModel)]="modelToDelete.id" (change)="getModelById($event)">
+                <option value="undefined" disabled>Chose model</option>
+                <option *ngFor="let m of allModelsInDelete" [value]="m.id">{{m.name}}</option>
+            </select>
+        </div>
+        <button class="form-control btn btn-info" [disabled]="!modelToDelete.id" (click)="open(content)">Delete
+            model</button>
+        <div *ngIf="messageDeleteModel">
+            <h6>{{messageDeleteModel}}</h6>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div *ngIf="allManufacturers">
+            <select class="custom-select" name="manufacturerId" [(ngModel)]="modelToAdd.manufacturerId">
+                <option value="undefined" disabled>Chose Manufacturer</option>
+                <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+            </select>
+        </div>
+        <input name="name" [(ngModel)]="modelToAdd.name" placeholder="Model name" type="text" class="form-control"
+            maxlength="50">
+        <input name="price" [(ngModel)]="modelToAdd.price" placeholder="Model price" type="number" class="form-control">
+        <input type="file" (change)="uploadImage($event)" placeholder="Model image" class="form-control"
+            accept=".jpg" name="file">
+        <button [disabled]="!modelToAdd.manufacturerId || !modelToAdd.name|| !modelToAdd.price || !this.file"
+            class="form-control btn btn-info" (click)="addModel()">Add
+            model</button>
+        <div *ngIf="messageAddModel">
+            <h6>{{messageAddModel}}</h6>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div *ngIf="allManufacturers">
+            <select class="custom-select" name="manufacturerId" [(ngModel)]="modelToUpdate.manufacturerId"
+                (change)="getAllModelsByManufacturer($event)">
+                <option value="undefined" disabled>Chose manufacturer of model</option>
+                <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+            </select>
+        </div>
+        <div *ngIf="allModelsInUpdate">
+            <select class="custom-select" name="id" [(ngModel)]="modelToUpdate.id" (change)="getModelById($event)">
+                <option value="undefined" disabled>Chose model</option>
+                <option *ngFor="let m of allModelsInUpdate" [value]="m.id">{{m.name}}</option>
+            </select>
+        </div>
+        <input name="name" [(ngModel)]="modelToUpdate.name" placeholder="Chose new model name" type="text"
+            class="form-control">
+        <input name="name" [(ngModel)]="modelToUpdate.price" placeholder="Chose new model price" type="text"
+            class="form-control">
+        <input type="file" (change)="uploadImage($event)" placeholder="Model image" class="form-control"
+            accept=".jpeg,.jpg" name="file">
+        <button [disabled]="!modelToUpdate.name  || !modelToUpdate.id || !modelToUpdate.price"
+            class="form-control btn btn-info" (click)="updateModel()">Update
+            model</button>
+        <div *ngIf="messageUpdateModel">
+            <h6>{{messageUpdateModel}}</h6>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="confirm">
+        <div class="modal-header">
+            <h4 class="modal-title" id="modal-basic-title">Are you sure?</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <h3>This action will delete {{modelToDelete.name}} permanently.</h3>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-info btn-outline-dark"
+                (click)="modal.close('Save click')">Cancel</button>
+            <button type="button" class="btn btn-info btn-outline-dark"
+                (click)="deleteModel();modal.close()">Delete</button>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,21 @@
+<div class="col">
+    <div *ngIf="allManufacturers">
+        <select class="custom-select" name="manufacturerId" [(ngModel)]="manufacturerId"
+            (change)="getAllModelsByManufacturer()">
+            <option value="undefined" disabled>Chose Manufacturer</option>
+            <option *ngFor="let m of allManufacturers" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+    <div *ngIf="allModels">
+        <select class="custom-select" name="id" [(ngModel)]="carToAdd.modelID">
+            <option value="undefined" disabled>Chose car model</option>
+            <option *ngFor="let m of allModels" [value]="m.id">{{m.name}}</option>
+        </select>
+    </div>
+    <input name="name" [(ngModel)]="carToAdd.licenseNumber" placeholder="Car licence number" type="text" maxlength="50"
+        class="form-control">
+    <button [disabled]="!carToAdd.modelID || !carToAdd.licenseNumber" class="form-control btn btn-info"
+        (click)="addCar()">Add
+        car</button>
+</div>
+<div *ngIf="messageAddCar"><h6>{{messageAddCar}}</h6></div>
